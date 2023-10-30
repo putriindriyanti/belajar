@@ -1,0 +1,80 @@
+POST http://localhost:3000/api/v1/users
+Content-Type: application/json
+
+{
+    "name": "putri",
+    "email":"putri1@mail.com",
+    "password":"password123"
+}
+
+###
+
+GET http://localhost:3000/api/v1/users
+
+###
+GET http://localhost:3000/api/v1/users/1
+
+
+###
+POST http://localhost:3000/api/v1/accounts
+Content-Type: application/json
+
+{
+  "user_id": 1,
+  "bank_name" : "Bank BRI",
+  "bank_account_number" : "4354272667",
+  "ballance" : 100000
+}
+
+
+###
+GET http://localhost:3000/api/v1/accounts
+
+###
+GET http://localhost:3000/api/v1/accounts/1
+
+
+###contoh 1
+POST http://localhost:3000/api/v1/transactions
+Content-Type: application/json
+
+{
+  "source_account_id": 3,
+  "destination_account_id": 2,
+  "amount": 500
+}
+
+###
+GET http://localhost:3000/api/v1/transactions
+
+
+###
+GET http://localhost:3000/api/v1/transactions/1
+
+
+###
+
+POST http://localhost:3000/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "name":"sabrina",
+    "email":"sabrina@mail.com",
+    "password":"sabrina123",
+    "password_confirmation":"sabrina123"
+}
+
+
+###
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email":"sabrina@mail.com",
+    "password":"sabrina123"
+}
+
+
+###
+GET http://localhost:3000/api/v1/auth/whoami
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjk3ODYxNTk2fQ.z-f6obwuIA1CYcI6JXGeexraJDZ7P402zMgO76MoDG8

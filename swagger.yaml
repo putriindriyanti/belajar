@@ -1,0 +1,560 @@
+openapi: 3.0.3
+info:
+  title: BANK SYSTEM TESTING
+  description: |-
+    bank system.
+  contact:
+    email: alex@mail.com
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api/v1
+  - url: https://test.binarnews.com/api/v1
+  - url: https://binarnews.com/api/v1
+tags:
+  - name: Users
+    description: Operations related to users
+  - name: Post
+    description: Operations related to posts
+paths:
+  /users:
+    post:
+      tags:
+        - Users
+      operationId: post-create-new-user
+      summary: Create a new user
+      description: Creates a new user with the provided information.
+      requestBody:
+        $ref: "#/components/requestBodies/CreateUsers"
+      responses:
+        "201":
+          description: Successful user creation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        $ref: "#/components/schemas/UserModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error message here"
+                  data:
+                    type: object
+                    example: {}
+
+    get:
+      tags:
+        - Users
+      operationId: get-fetch-all-user
+      summary: Get all users
+      description: Retrieves a list of all registered users.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: Page number for pagination.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          required: false
+          description: Number of items per page.
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          pagination:
+                            $ref: "#/components/schemas/Pagination"
+                          users:
+                            type: array
+                            items:
+                              $ref: "#/components/schemas/UserModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error message here"
+                  data:
+                    type: object
+                    example: {}
+
+  "/users/{userId}":
+    get:
+      tags:
+        - Users
+      operationId: get-fetch-user-detail
+      summary: Get user details
+      description: Retrieves details of a specific user.
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the user to retrieve.
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        $ref: "#/components/schemas/UserModel"
+
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error message here"
+                  data:
+                    type: object
+                    example: {}
+
+  /accounts:
+    post:
+      tags:
+        - Accounts
+      operationId: post-create-new-accounts
+      summary: Create a new accounts
+      description: Creates a new accounts with the provided information.
+      requestBody:
+        $ref: "#/components/requestBodies/CreateAccounts"
+      responses:
+        "201":
+          description: Successful accounts creation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        $ref: "#/components/schemas/AccountsModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error message here"
+                  data:
+                    type: object
+                    example: {}
+
+    get:
+      tags:
+        - Accounts
+      operationId: get-fetch-all-account
+      summary: Get all accounts
+      description: Retrieves a list of all registered accounts.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: Page number for pagination.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          required: false
+          description: Number of items per page.
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          pagination:
+                            $ref: "#/components/schemas/Pagination"
+                          users:
+                            type: array
+                            items:
+                              $ref: "#/components/schemas/AccountsModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error message here"
+                  data:
+                    type: object
+                    example: {}
+
+  "/accounts/{accountsId}":
+    get:
+      tags:
+        - Accounts
+      operationId: get-fetch-accounts-detail
+      summary: Get account details
+      description: Retrieves details of a specific Account.
+      parameters:
+        - in: path
+          name: AccountId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the accounts to retrieve.
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        $ref: "#/components/schemas/AccountsModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error message here"
+                  data:
+                    type: object
+                    example: {}
+
+  /transactions:
+    post:
+      tags:
+        - Transactions
+      operationId: post-create-new-transactions
+      summary: Create a new transactions
+      description: Creates a new transactions with the provided information.
+      requestBody:
+        $ref: "#/components/requestBodies/CreateTransactions"
+      responses:
+        "201":
+          description: Successful transactions creation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        $ref: "#/components/schemas/TransactionsModel"
+
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error message here"
+                  data:
+                    type: object
+                    example: {}
+
+    get:
+      tags:
+        - Transactions
+      operationId: get-fetch-all-transactions
+      summary: Get all transactionss
+      description: Retrieves a list of all registered transactionss.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          required: false
+          description: Page number for pagination.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          required: false
+          description: Number of items per page.
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          pagination:
+                            $ref: "#/components/schemas/Pagination"
+                          users:
+                            type: array
+                            items:
+                              $ref: "#/components/schemas/TransactionsModel"
+
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error message here"
+                  data:
+                    type: object
+                    example: {}
+
+  "/transactions/{transactionsId}":
+    get:
+      tags:
+        - Transactions
+      operationId: get-fetch-transactions-detail
+      summary: Get account details
+      description: Retrieves details of a specific Transactions.
+      parameters:
+        - in: path
+          name: AccountId
+          schema:
+            type: integer
+          required: true
+          description: The ID of the transactions to retrieve.
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        $ref: "#/components/schemas/TransactionsModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Error message here"
+                  data:
+                    type: object
+                    example: {}
+
+components:
+  schemas:
+    BasicResponse:
+      title: BasicResponse
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "success"
+    UserModel:
+      title: User
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "putri"
+        email:
+          type: string
+          example: "putri@mail.com"
+        password:
+          type: string
+          example: "12345"
+    AccountsModel:
+      title: Accounts
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 2
+        bank_name:
+          type: string
+          example: "BNI"
+        bank_account_number:
+          type: string
+          example: "141414627"
+        ballance:
+          type: integer
+          example: 10000
+    TransactionsModel:
+      title: Transactions
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        source_account_id:
+          type: integer
+          example: 1
+        destination_account_id:
+          type: integer
+          example: 2
+        amount:
+          type: integer
+          example: 5000
+          
+    Pagination:
+      title: Pagination
+      type: object
+      properties:
+        links:
+          type: object
+          properties:
+            next:
+              type: string
+              example: "https://domain.com/users?page=3&limit=10"
+            prev:
+              type: string
+              example: "https://domain.com/users?page=1&limit=10"
+        total_items:
+          type: integer
+          example: 100
+  requestBodies:
+    CreateUsers:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "putri"
+              email:
+                type: string
+                example: "putri@mail.com"
+              password:
+                type: string
+                example: "12345"
+    CreateAccounts:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+                user_id:
+                  type: integer
+                  example: 2
+                bank_name:
+                  type: string
+                  example: "BNI"
+                bank_account_number:
+                  type: string
+                  example: "141414627"
+                ballance:
+                  type: integer
+                  example: 10000
+
+    CreateTransactions:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+                source_account_id:
+                  type: integer
+                  example: 1
+                destination_account_id:
+                  type: integer
+                  example: 2
+                amount:
+                  type: integer
+                  example: 5000
+          
