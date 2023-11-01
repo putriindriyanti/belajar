@@ -15,6 +15,15 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 
+app.get('/', (req, res)=>{
+    return res.json({
+        status : true,
+        message:'hello world!',
+        error:null,
+        data:null
+    });
+});
+
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', usersRouter);
